@@ -1,6 +1,7 @@
 {
   "appId": "com.rexiades.nexcord",
   "productName": "Nexcord",
+  "artifactName": "NexcordInstaller.${ext}",
   "electronVersion": "30.0.0",
   "directories": {
     "output": "dist"
@@ -28,8 +29,15 @@
     "allowToChangeInstallationDirectory": true,
     "createDesktopShortcut": true,
     "createStartMenuShortcut": true,
+    "warningsAsErrors": false,
     "include": "build/installer.nsh"
   },
+  "extraResources": [
+    {
+      "from": "dist/patcher.js",
+      "to": "patcher.js"
+    }
+  ],
   "publish": [
     {
       "provider": "github",

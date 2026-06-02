@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Nexcord, a modification for Discord's desktop app
  * Copyright (c) 2022 Vendicated and contributors
  *
@@ -30,6 +30,7 @@ import { release } from "os";
 import { join, normalize } from "path";
 
 import { registerCspIpcHandlers } from "./csp/manager";
+import { getDiscordInstalls, installToDiscord, uninstallFromDiscord } from "./installer";
 import { getThemeInfo, stripBOM, UserThemeHeader } from "./themes";
 import { ALLOWED_PROTOCOLS, QUICK_CSS_PATH, SETTINGS_DIR, THEMES_DIR } from "./utils/constants";
 import { makeLinksOpenExternally } from "./utils/externalLinks";
@@ -181,3 +182,7 @@ if (IS_DISCORD_DESKTOP) {
 ipcMain.on(IpcEvents.SUPPORTS_WINDOWS_MATERIAL, e => {
     e.returnValue = process.platform === "win32" && Number(release().split(".")[2]) >= 22621;
 });
+
+ipcMain.handle(IpcEvents.GET_DISCORD_INSTALLS, () => getDiscordInstalls());
+ipcMain.handle(IpcEvents.INSTALL_TO_DISCORD, (_, path: string) => installToDiscord(path));
+ipcMain.handle(IpcEvents.UNINSTALL_FROM_DISCORD, (_, path: string) => uninstallFromDiscord(path));

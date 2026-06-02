@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Nexcord, a modification for Discord's desktop app
  * Copyright (c) 2023 Vendicated and contributors
  *
@@ -610,6 +610,20 @@ export function RightArrow(props: IconProps) {
             <path
                 fill={props.fill || "currentColor"}
                 d="M9.3 5.3a1 1 0 0 0 0 1.4l5.29 5.3-5.3 5.3a1 1 0 1 0 1.42 1.4l6-6a1 1 0 0 0 0-1.4l-6-6a1 1 0 0 0-1.42 0Z"
+            />
+        </Icon>
+    );
+}
+
+export function InstallerIcon(props: IconProps) {
+    return (
+        <Icon
+            {...props}
+            viewBox="0 0 24 24"
+        >
+            <path
+                fill={props.fill || "currentColor"}
+                d="M19 9h-4V3H9v6H5l7 7 7-7ZM5 18v2h14v-2H5Z"
             />
         </Icon>
     );

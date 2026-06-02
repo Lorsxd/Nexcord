@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Nexcord, a Discord client mod
  * Copyright (c) 2023 Vendicated and contributors
  * SPDX-License-Identifier: GPL-3.0-or-later
@@ -98,6 +98,12 @@ export default {
         removeOverride: (url: string) => invoke<boolean>(IpcEvents.CSP_REMOVE_OVERRIDE, url),
         requestAddOverride: (url: string, directives: string[], callerName: string) =>
             invoke<CspRequestResult>(IpcEvents.CSP_REQUEST_ADD_OVERRIDE, url, directives, callerName),
+    },
+
+    installer: {
+        getInstalls: () => invoke<import("@main/installer").DiscordInstall[]>(IpcEvents.GET_DISCORD_INSTALLS),
+        install: (path: string) => invoke<{ ok: boolean; error?: string }>(IpcEvents.INSTALL_TO_DISCORD, path),
+        uninstall: (path: string) => invoke<{ ok: boolean; error?: string }>(IpcEvents.UNINSTALL_FROM_DISCORD, path),
     },
 
     pluginHelpers: PluginHelpers

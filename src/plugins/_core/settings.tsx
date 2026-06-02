@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Nexcord, a modification for Discord's desktop app
  * Copyright (c) 2022 Vendicated and Megumin
  *
@@ -17,8 +17,8 @@
 */
 
 import { definePluginSettings } from "@api/Settings";
-import { BackupRestoreIcon, CloudIcon, MainSettingsIcon, PaintbrushIcon, PatchHelperIcon, PlaceholderIcon, PluginsIcon, UpdaterIcon, VesktopSettingsIcon } from "@components/Icons";
-import { BackupAndRestoreTab, CloudTab, PatchHelperTab, PluginsTab, ThemesTab, UpdaterTab, NexcordTab } from "@components/settings/tabs";
+import { BackupRestoreIcon, CloudIcon, InstallerIcon, MainSettingsIcon, PaintbrushIcon, PatchHelperIcon, PlaceholderIcon, PluginsIcon, UpdaterIcon, VesktopSettingsIcon } from "@components/Icons";
+import { BackupAndRestoreTab, CloudTab, InstallerTab, PatchHelperTab, PluginsTab, ThemesTab, UpdaterTab, NexcordTab } from "@components/settings/tabs";
 import { Devs } from "@utils/constants";
 import { isTruthy } from "@utils/guards";
 import definePlugin, { IconProps, OptionType } from "@utils/types";
@@ -207,6 +207,13 @@ export default definePlugin({
                 title: "Backup & Restore",
                 Component: BackupAndRestoreTab,
                 Icon: BackupRestoreIcon
+            }),
+            IS_STANDALONE && InstallerTab && buildEntry({
+                key: "nexcord_installer",
+                title: "Discord Yükleyici",
+                panelTitle: "Discord Yükleyici",
+                Component: InstallerTab,
+                Icon: InstallerIcon
             }),
             !IS_STANDALONE && PatchHelperTab && buildEntry({
                 key: "nexcord_patch_helper",

@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Nexcord, a modification for Discord's desktop app
  * Copyright (c) 2023 Vendicated and contributors
  *
@@ -55,4 +55,8 @@ export const enum IpcEvents {
     PRELOAD_GET_RENDERER_JS = "NexcordPreloadGetRendererJs",
 
     SUPPORTS_WINDOWS_MATERIAL = "NexcordSupportsWindowsMaterial",
+
+    GET_DISCORD_INSTALLS = "NexcordGetDiscordInstalls",
+    INSTALL_TO_DISCORD = "NexcordInstallToDiscord",
+    UNINSTALL_FROM_DISCORD = "NexcordUninstallFromDiscord",
 }

@@ -1,7 +1,7 @@
 {
     "name": "nexcord",
     "private": true,
-    "version": "1.14.14",
+    "version": "1.14.15",
     "description": "The cutest Discord client mod",
     "homepage": "https://github.com/Lorsxd/Nexcord#readme",
     "bugs": {
@@ -33,6 +33,7 @@
         "test": "pnpm buildStandalone && pnpm testTsc && pnpm lint && pnpm lint-styles && pnpm generatePluginJson",
         "testWeb": "pnpm lint && pnpm buildWeb && pnpm testTsc",
         "testTsc": "tsc --noEmit",
+        "buildLiteExe": "pnpm buildStandalone && node scripts/buildLiteExe.mjs",
         "buildExe": "pnpm buildStandalone && electron-builder"
     },
     "dependencies": {

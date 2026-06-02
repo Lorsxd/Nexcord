@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Nexcord, a modification for Discord's desktop app
  * Copyright (c) 2023 Vendicated and contributors
  *
@@ -25,7 +25,7 @@ import { Readable } from "stream";
 import { finished } from "stream/promises";
 import { fileURLToPath } from "url";
 
-const BASE_URL = "https://github.com/Nexcord/Installer/releases/latest/download/";
+const BASE_URL = "https://github.com/Lorsxd/Installer/releases/latest/download/";
 const INSTALLER_PATH_DARWIN = "NexcordInstaller.app/Contents/MacOS/NexcordInstaller";
 
 const BASE_DIR = join(dirname(fileURLToPath(import.meta.url)), "..");
