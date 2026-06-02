@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * Nexcord, a modification for Discord's desktop app
  * Copyright (c) 2022 Vendicated and contributors
  *
@@ -122,13 +122,17 @@ async function runUpdateCheck() {
         if (!isOutdated) return;
 
         if (Settings.autoUpdate) {
-            await update();
-            if (Settings.autoUpdateNotification) {
-                notify({
-                    title: "Nexcord has been updated!",
-                    body: "Click here to restart",
-                    onClick: relaunch
-                });
+            const success = await update();
+            if (success) {
+                if (Settings.autoUpdateNotification) {
+                    notify({
+                        title: "Nexcord has been updated!",
+                        body: "Click here to restart",
+                        onClick: relaunch
+                    });
+                }
+            } else {
+                UpdateLogger.error("Auto-update failed: pull was not a fast-forward or build failed.");
             }
             return;
         }

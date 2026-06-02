@@ -70,7 +70,7 @@ function InstallCard({ install, onDone }: { install: DiscordInstall; onDone(): v
                                 borderRadius: 4,
                                 padding: "1px 6px",
                                 verticalAlign: "middle"
-                            }}>Yüklü</span>
+                            }}>✓ Nexcord Yüklü</span>
                         )}
                     </Forms.FormTitle>
                     <Forms.FormText style={{ fontSize: "0.8em", color: "var(--text-muted)", marginTop: 2 }}>
@@ -93,22 +93,25 @@ function InstallCard({ install, onDone }: { install: DiscordInstall; onDone(): v
                 </div>
 
                 <Flex flexDirection="row" style={{ gap: 8, flexShrink: 0 }}>
-                    <Button
-                        size={Button.Sizes.SMALL}
-                        color={Button.Colors.GREEN}
-                        disabled={isWorking}
-                        onClick={doInstall}
-                    >
-                        {isWorking ? "Çalışıyor…" : "Yükle"}
-                    </Button>
-                    <Button
-                        size={Button.Sizes.SMALL}
-                        color={Button.Colors.RED}
-                        disabled={isWorking}
-                        onClick={doUninstall}
-                    >
-                        {isWorking ? "Çalışıyor…" : "Kaldır"}
-                    </Button>
+                    {install.patched ? (
+                        <Button
+                            size="small"
+                            variant="dangerPrimary"
+                            disabled={isWorking}
+                            onClick={doUninstall}
+                        >
+                            {isWorking ? "Çalışıyor…" : "Kaldır"}
+                        </Button>
+                    ) : (
+                        <Button
+                            size="small"
+                            variant="positive"
+                            disabled={isWorking}
+                            onClick={doInstall}
+                        >
+                            {isWorking ? "Çalışıyor…" : "Yükle"}
+                        </Button>
+                    )}
                 </Flex>
             </Flex>
         </Card>
@@ -164,8 +167,8 @@ function InstallerTab() {
 
                 <Button
                     className={Margins.top16}
-                    size={Button.Sizes.SMALL}
-                    color={Button.Colors.PRIMARY}
+                    size="small"
+                    variant="secondary"
                     onClick={refresh}
                     disabled={pending}
                 >

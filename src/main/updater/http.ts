@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Nexcord, a modification for Discord's desktop app
  * Copyright (c) 2022 Vendicated and contributors
  *
@@ -57,18 +57,33 @@ async function calculateGitChanges() {
 }
 
 async function fetchUpdates() {
-    const data = await githubGet("/releases/latest");
+    let data: any;
+    try {
+        data = await githubGet("/releases/latest");
+    } catch (e) {
+        // No releases exist yet or network error — treat as up to date
+        return false;
+    }
+
+    if (!data?.name) return false;
 
     const hash = data.name.slice(data.name.lastIndexOf(" ") + 1);
     if (hash === gitHash)
         return false;
 
-    data.assets.forEach(({ name, browser_download_url }) => {
-        if (NEXCORD_FILES.some(s => name.startsWith(s))) {
-            PendingUpdates.push([name, browser_download_url]);
-        }
-    });
+    const matchingAssets: [string, string][] = [];
+    if (Array.isArray(data.assets)) {
+        data.assets.forEach(({ name, browser_download_url }: any) => {
+            if (NEXCORD_FILES.some(s => name.startsWith(s))) {
+                matchingAssets.push([name, browser_download_url]);
+            }
+        });
+    }
 
+    // If no matching assets exist (e.g. fork without proper releases), skip update
+    if (matchingAssets.length === 0) return false;
+
+    PendingUpdates.push(...matchingAssets);
     return true;
 }
 
