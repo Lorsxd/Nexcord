@@ -1,0 +1,58 @@
+name: Release Windows Installer
+
+on:
+    push:
+        tags:
+            - v*
+
+env:
+    FORCE_COLOR: true
+
+jobs:
+    build-and-release:
+        name: Build & Release Windows .exe
+        if: github.repository == 'Lorsxd/Nexcord'
+        runs-on: windows-latest
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Check that tag matches package.json version
+              shell: bash
+              run: |
+                  pkg_version="v$(jq -r .version < package.json)"
+                  if [[ "${{ github.ref_name }}" != "$pkg_version" ]]; then
+                      echo "Tag ${{ github.ref_name }} does not match package.json version $pkg_version" >&2
+                      exit 1
+                  fi
+
+            - uses: pnpm/action-setup@v3
+
+            - name: Use Node.js 20
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+                  cache: "pnpm"
+
+            - name: Install dependencies
+              run: pnpm install --frozen-lockfile
+
+            - name: Build standalone
+              run: pnpm buildStandalone
+
+            - name: Build Windows installer (.exe)
+              run: pnpm exec electron-builder --win --x64
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Upload .exe to GitHub Release
+              uses: softprops/action-gh-release@v2
+              with:
+                  files: |
+                      dist/*.exe
+                      dist/*.blockmap
+                  generate_release_notes: true
+                  make_latest: true
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

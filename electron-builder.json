@@ -1,0 +1,38 @@
+{
+  "appId": "com.rexiades.nexcord",
+  "productName": "Nexcord",
+  "electronVersion": "30.0.0",
+  "directories": {
+    "output": "dist"
+  },
+  "files": [
+    "dist/**/*",
+    "package.json"
+  ],
+  "extraMetadata": {
+    "main": "dist/nexcordDesktopMain.js"
+  },
+  "win": {
+    "target": [
+      {
+        "target": "nsis",
+        "arch": ["x64"]
+      }
+    ],
+    "icon": "src/assets/icon.png"
+  },
+  "nsis": {
+    "oneClick": false,
+    "perMachine": true,
+    "allowElevation": true,
+    "createDesktopShortcut": true,
+    "createStartMenuShortcut": true
+  },
+  "publish": [
+    {
+      "provider": "github",
+      "owner": "Rexiades",
+      "repo": "Nexcord"
+    }
+  ]
+}
